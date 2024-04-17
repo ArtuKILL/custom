@@ -9,8 +9,8 @@ local servers = {
   "tsserver",
   -- "clangd",
   --"tailwindcss",
-  "phpactor",
-  "emmet_language_server",
+  -- "phpactor",
+  -- "emmet_language_server",
   "pylsp",
   "nginx_language_server",
   "eslint",
@@ -25,9 +25,11 @@ local servers = {
 -- lspconfig.arduino_language_server.setup {}
 
 -- lspconfig.emmet_language_server.setup {}
+--#region
 --
-
 lspconfig.pylsp.setup {}
+
+lspconfig.luau_lsp.setup {}
 
 lspconfig.nginx_language_server.setup {}
 
@@ -70,24 +72,24 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-lspconfig.arduino_language_server.setup {
-  cmd = {
-    "arduino-language-server",
-    "-cli-config",
-    "/home/Archurrito/.arduino15/arduino-cli.yaml",
-    "-fqbn",
-    "esp32:esp32:esp32",
-    "-cli",
-    "/home/Archurrito/bin/arduino-cli",
-    "-clangd",
-    "/usr/bin/clangd",
-  },
-  filetypes = {
-    "arduino",
-    "c",
-    "cpp",
-  },
-}
+-- lspconfig.arduino_language_server.setup {
+--   cmd = {
+--     "arduino-language-server",
+--     "-cli-config",
+--     "/home/Archurrito/.arduino15/arduino-cli.yaml",
+--     "-fqbn",
+--     "esp32:esp32:esp32",
+--     "-cli",
+--     "/home/Archurrito/bin/arduino-cli",
+--     "-clangd",
+--     "/usr/bin/clangd",
+--   },
+--   filetypes = {
+--     "arduino",
+--     "c",
+--     "cpp",
+--   },
+-- }
 
 lspconfig.clangd.setup {
   cmd = {
@@ -95,7 +97,17 @@ lspconfig.clangd.setup {
     "--offset-encoding=utf-16",
   },
 }
--- --
--- l
+
+-- lspconfig.luau.setup {
+--   sourcemap = {
+--     enabled = true,
+--     autogenerate = true,
+--     rojo_project_file = "default.project.json",
+--   },
+--   types = {
+--     roblox = true,
+--     roblox_security_level = "PluginSecurity",
+--   },
+-- }
 --
 -- spconfig.pyright.setup { blabla}

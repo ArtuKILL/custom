@@ -39,6 +39,14 @@ M.nvim_dap = {
   },
 }
 
+M.jupynium = {
+  n = {
+    ["<leader>ji"] = { "<cmd>JupyniumStartSync<CR>", "Init Jupynium sync" },
+    ["<leader>jc"] = { "<cmd>JupyniumStopSync<CR>", "Stop Jupynium sync" },
+    ["<leader>jx"] = { "<cmd>JupyniumExecuteSelectedCells<CR>", "Jupynium Excute selected cells" },
+  },
+}
+
 M.mason_nvim_dap = {
   n = {
     ["<leader>di"] = { "<cmd>Lazy load mason-nvim-dap.nvim<CR>", "Load debugger installer" },

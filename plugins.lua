@@ -18,18 +18,33 @@ local plugins = {
     },
     config = function()
       require "plugins.configs.lspconfig"
-      require "custom.configs.lspconfig"
+      require "custom.configs.mason-lspconfig"
+      -- require "custom.configs.lspconfig"
     end, -- Override to setup mason-lspconfig
+    opts = {
+      servers = {
+        luau_lsp = {},
+      },
+      setup = {},
+    },
   },
 
   -- override plugin configs
   {
     "williamboman/mason.nvim",
     opts = overrides.mason,
+    config = function()
+      require("mason").setup()
+      require("mason-lspconfig").setup()
+    end,
   },
 
   {
     "williamboman/mason-lspconfig.nvim",
+    require = {
+      "williamboman/mason.nvim",
+      "neovim/nvim-lspconfig",
+    },
     config = function()
       require("mason").setup()
       require("mason-lspconfig").setup()
@@ -120,6 +135,52 @@ local plugins = {
       "williamboman/mason.nvim",
       "mfussenegger/nvim-dap",
     },
+  },
+  {
+    "lopi-py/luau-lsp.nvim",
+    ft = { "luau" },
+    event = "LspAttach",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    opts = {},
+  },
+  {
+    "antosha417/nvim-lsp-file-operations",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-tree.lua",
+    },
+    config = function()
+      require("lsp-file-operations").setup()
+    end,
+  },
+  {
+    "kiyoon/jupynium.nvim",
+    build = "pip install --user .",
+    config = function()
+      require("jupynium").setup {
+        default_notebook_URL = "localhost:8888/nbclassic",
+      }
+    end,
+    event = "BufReadPre *.ju.py",
+  },
+  {
+    "rcarriga/nvim-notify",
+  },
+  {
+    "stevearc/dressing.nvim",
+  },
+  {
+    "https://github.com/apple/pkl-neovim",
+    lazy = true,
+    event = "BufReadPre *.pkl",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    build = function()
+      vim.cmd "TSInstall!, pkl"
+    end,
   },
   -- To make a plugin not be loaded
   -- {
